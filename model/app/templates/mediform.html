@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEDICAL DETAILS</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-image: url('background-image.jpg'); /* Add your background image */
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #fff; /* Text color for better contrast */
+    }
+
+    form {
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .txt_field {
+      position: relative;
+      margin: 15px 0;
+    }
+
+    input {
+      border: none;
+      border-bottom: 2px solid #fff;
+      outline: none;
+      background: transparent;
+      color: #fff;
+      width: 100%;
+      padding: 5px 0;
+      font-size: 16px;
+    }
+
+    input:focus~label,
+    input:valid~label {
+      top: -18px;
+      font-size: 14px;
+      color: #00bcd4;
+    }
+
+    label {
+      position: absolute;
+      top: 5px;
+      left: 0;
+      color: #fff;
+      font-size: 16px;
+      pointer-events: none;
+      transition: 0.5s;
+    }
+
+    select {
+      border: none;
+      outline: none;
+      background: transparent;
+      color: #fff;
+      font-size: 16px;
+      padding: 5px 0;
+    }
+
+    input[type="submit"] {
+      background: #00bcd4;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <form method="post">
+    {% csrf_token %}
+    <div class="txt_field">
+      <input type="text" name="name" required>
+      <label>Name</label>
+    </div>
+    <div>
+      <label for="dropdown">Do you have any medical issues:</label>
+      <select id="dropdown">
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
+      </select>
+    </div>
+    <div id="details" style="display:none;">
+      <div class="txt_field">
+        <input type="text" name="hospital_name" required>
+        <label>Hospital Name</label>
+      </div>
+      <div class="txt_field">
+        <input type="text" name="hospital_no" required>
+        <label>Hospital No</label>
+      </div>
+      <div class="txt_field">
+        <input type="text" name="guardian_name" required>
+        <label>Guardian Name</label>
+      </div>
+      <div class="txt_field">
+        <input type="text" name="guardian_no" required>
+        <label>Guardian No</label>
+      </div>
+      <div class="txt_field">
+        <input type="text" name="address" required>
+        <label>Address</label>
+      </div>
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+
+  <script>
+    var dropdown = document.getElementById("dropdown");
+    var details = document.getElementById("details");
+
+    dropdown.addEventListener("change", function() {
+      if (dropdown.value === "Yes") {
+        details.style.display = "block";
+      } else {
+        details.style.display = "none";
+      }
+    });
+  </script>
+</body>
+
+</html>

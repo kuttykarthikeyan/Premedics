@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('your-background-image.jpg'); /* Add your image file path here */
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out; /* Add a fade-in animation */
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Style for search results */
+        #search-results {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="search-form">
+        <label for="searchInput">Search by ID or Phone Number:</label>
+        <input type="text" id="searchInput" name="searchInput" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <div id="search-results"></div>
+
+    <!-- Your table code remains unchanged -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Hospital Name</th>
+                <th>Hospital Number</th>
+                <th>Guardian Name</th>
+                <th>Guardian Number</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in medical %}
+            <tr>
+                <td>{{i.name}}</td>
+                <td>{{i.hospital_name}}</td>
+                <td>{{i.hospital_no}}</td>
+                <td>{{i.guardian_name}}</td>
+                <td>{{i.guardian_no}}</td>
+                <td>{{i.address}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            // Retrieve the search input value
+            var searchValue = document.getElementById('searchInput').value.toLowerCase();
+            // Call a function to filter and display the search results
+            filterAndDisplayResults(searchValue);
+        });
+
+        function filterAndDisplayResults(searchValue) {
+            // Get the table rows
+            var rows = document.querySelectorAll('tbody tr');
+            var resultsContainer = document.getElementById('search-results');
+            var resultsHtml = '<h2>Search Results</h2><table>';
+
+            // Iterate through each row and check if it contains the search value
+            rows.forEach(function (row) {
+                var rowData = row.innerText.toLowerCase();
+                if (rowData.includes(searchValue)) {
+                    resultsHtml += '<tr>' + row.innerHTML + '</tr>';
+                }
+            });
+
+            resultsHtml += '</table>';
+
+            // Display the results in the results container
+            resultsContainer.innerHTML = resultsHtml;
+        }
+    </script>
+</body>
+
+</html>
